@@ -13,9 +13,31 @@ const CURRENT_WIDTH = Dimensions.get(`window`).width;
 
 const App = () => {
   const [tab, setTab] = useState(0);
+  const [firstDice, setFirstDice] = useState(`잠시만 기다려주세요.`);
+  const [secondDice, setSecondDice] = useState(`잠시만 기다려주세요.`);
+  const [resultText, setResultText] = useState(``);
+
+  const _getRandomNumber = () => Math.floor(Math.random() * 5 + 1);
 
   const _startButtonClickHandler = (value) => {
     setTab(value);
+
+    if (value === 0) {
+      setFirstDice(`잠시만 기다려 주세요`);
+      setSecondDice(`잠시만 기다려 주세요`);
+      setResultText(``);
+    }
+
+    if (value === 1) {
+      const dice1 = _getRandomNumber();
+      const dice2 = _getRandomNumber();
+      const sumresult = dice1 + dice2;
+
+      setFirstDice(dice1);
+      setSecondDice(dice2);
+
+      setResultText(sumresult);
+    }
   };
 
   return (
@@ -33,18 +55,15 @@ const App = () => {
           <View style={styles.diceArea}>
             <View style={styles.diceTopArea}>
               <View style={styles.diceTopdetailArea}>
-                <Text style={styles.writingText}>Image1</Text>
+                <Text style={styles.writingText}>{firstDice}</Text>
               </View>
               <View style={styles.diceTopdetailArea}>
-                <Text style={styles.writingText}>Image2</Text>
+                <Text style={styles.writingText}>{secondDice}</Text>
               </View>
             </View>
             <View style={styles.diceBottomArea}>
               <View style={styles.diceBottomdetailArea}>
-                <Text style={styles.writingText}>Result1</Text>
-              </View>
-              <View style={styles.diceBottomdetailArea}>
-                <Text style={styles.writingText}>Result2</Text>
+                <Text style={styles.writingText}>{resultText}</Text>
               </View>
             </View>
           </View>
